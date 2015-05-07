@@ -45,9 +45,10 @@ public class main {
 		cliente1.addOrdine(ordine1);
 		
 		//LE SEGUENTI TRE RIGHE SERVONO SOLAMENTE A VEDERE SE VENGONO PERSISTITE LE COLONNE "DataEvasioneOrdine"
-		Order temp = cliente1.getOrdineParticolare(ordine1.getId());
-		temp.setDataEvasioneOrdine(date);
-		cliente1.addOrdine(temp);
+		//Nel main non funziona perchè non essendo ancor apersistito l'ordine non ha un Id associato
+//		Order temp = cliente1.getOrdineParticolare(ordine1.getId());
+//		temp.setDataEvasioneOrdine(date);
+//		cliente1.addOrdine(temp);
 		//FINO A QUI
 
 		EntityTransaction tx = em.getTransaction();
@@ -57,6 +58,20 @@ public class main {
 		em.persist(cliente1);
 		
 		tx.commit();
+		
+		//LE SEGUENTI TRE RIGHE SERVONO SOLAMENTE A VEDERE SE VENGONO PERSISTITE LE COLONNE "DataEvasioneOrdine"
+		//Nel main non funziona perchè non essendo ancor apersistito l'ordine non ha un Id associato
+		Order temp = cliente1.getOrdineParticolare(ordine1.getId());
+		temp.setDataEvasioneOrdine(date);
+		cliente1.addOrdine(temp);
+		//FINO A QUI
+
+		em.persist(fornitore1);
+		em.persist(cliente1);
+		
+		tx.commit();
+		
+		
 		em.close();
 		emf.close();
 	}

@@ -41,11 +41,11 @@ public class Order {
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date dataEvasioneOrdine;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name="CUSTOMER_ID")
 	private Customer cliente;
 	
-	@OneToMany(mappedBy="ordine", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="ordine", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
 	private List<OrderLine> lineeDiOrdine;
 	
 	public Order(){

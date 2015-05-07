@@ -1,24 +1,30 @@
 package it.uniroma3.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 public class CustomerFacade {
 	
 	private EntityManager em;
+	private Map<Long, Customer> customers;
+	
+	public CustomerFacade(){
+		this.customers = new HashMap<>();
+	}
 	
 	public CustomerFacade(EntityManager em) {
 		this.em = em;
 	}
 
 	public void createCustomer(String firstName, String lastName, String email, Date dateOfBirth, Date registrationDate,
-			String street, String city, String state,
-			String zipcode, String country){
+			String street, String city, String state, String zipcode, String country, String pwd){
 		
 	Customer c = new Customer();
-	c.setDataRegistrazione(new Date());
 	c.setNome(firstName);
 	c.setCognome(lastName);
 	c.setEmail(email);
@@ -31,20 +37,26 @@ public class CustomerFacade {
 	a.setRegione(country);
 	a.setVia(street);
 	a.setCap(zipcode);
-	c.setIndirizzo(a);
 	
 	this.em.persist(c);
 	}
 	
 
-	public List<Customer> getRubrica(){
-		String sql = "SELECT c FROM Customer c";		
-		return this.em.createQuery(sql, Customer.class).getResultList();
+	public List<Customer> getAllCustomer(){
+		TypedQuery<Customer> query = em.createNamedQuery("Customer.findAll", Customer.class);
+		List<Customer> results = query.getResultList();
+		return results;
 	}
 	
-	public List<Order> getOrders (Long id){
-		return this.em.createQuery("findOrder", Order.class).setParameter("id", id).getResultList();
+	public Customer getCustomer(String email, String password){
+		TypedQuery<Customer> query = em.createNamedQuery("Customer.findOne", Customer.class);
+		Customer results = query.getSingleResult();
+		return results;
 	}
+	
+//	public List<Order> getOrders (Long id){
+//		return this.em.createQuery("findOrder", Order.class).setParameter("id", id).getResultList();
+//	}
 	
 	
 }

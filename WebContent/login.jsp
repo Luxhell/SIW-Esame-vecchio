@@ -7,12 +7,10 @@
 <title>Login</title>
 </head>
 <body>
-<form method="GET" action="admin/controllerLogin.do" >
-<p>Per effettuare il login come admin utilizzate mario come username e rossi come password</p>
-<p>Tutti gli altri username e password saranno considerati utenti senza privilegi</p>
-	<p>Username: <input type="text" value="" name="usernameT"/></p>
-	<p>Password: <input type="password" value="" name="passwordT"/></p>
-	<p><input type="submit" value="Login" name="bottoneLogin"/>
+	<form action="/controller/customer.login" />" method="get">
+	<p>Email: <input type="text" value="email" name="email"/></p>
+	<p>Password: <input type="password" value="" name="password"/></p>
+	<p><input type="submit" value="login" name="submit"/>
 </form> 
 </body>
 </html>

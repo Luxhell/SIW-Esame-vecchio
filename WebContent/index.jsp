@@ -10,7 +10,7 @@
 <body>
 	<h1>Esame siw giugno 2015</h1>
 	<ul>
-		<li><a href="<c:url value="/login.jsp" />">Effettua il login</a></li>
+		<li><a href="<c:url value="/controller/customer.login.jsp" />">Effettua il login</a></li>
 		<li><a href="<c:url value="/controller/product.list" />">Visualizza tutti prodotti in elenco</a></li>
 	</ul>
 	${action}

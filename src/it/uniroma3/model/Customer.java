@@ -11,12 +11,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+
+	@NamedQuery(name = "Customer.findOne", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password"),
+})
 public class Customer {
 
 	@Id
@@ -50,7 +57,7 @@ public class Customer {
 	@Column(nullable = false)
 	private String password;
 	
-	@OneToMany(mappedBy="cliente", cascade = {CascadeType.PERSIST})
+	@OneToMany(mappedBy="cliente", cascade = {CascadeType.ALL})
 	private List<Order> ordini;
 
 	public Customer(){
@@ -71,10 +78,10 @@ public class Customer {
 	}
 	
 	public Order getOrdineParticolare(Long id){
-		for(Order o: this.ordini){
-			if(o.getId().equals(id))
-				return o;
-		}
+			for(Order o: this.ordini){
+				if(o.getId().equals(id))
+					return o;
+			}
 		return null;		
 	}
 	
