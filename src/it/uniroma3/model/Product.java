@@ -18,7 +18,7 @@ public class Product {
 	@Column(nullable = false)
 	private String codice;
 	
-	@Column(nullable = false)
+	@Column
 	private String descrizione;
 	
 	@Column(nullable = false)
